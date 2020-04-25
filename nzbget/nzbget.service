@@ -1,0 +1,12 @@
+[Unit]
+Description=NZBGet docker container
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/docker start -a nzbget 
+ExecStop=/usr/bin/docker stop nzbget
+
+[Install]
+WantedBy=multi-user.target

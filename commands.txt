@@ -1,0 +1,5 @@
+docker create --name=nginx -p 80:80 -v /home/pi/docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf nginx
+docker create --name=nzbget -e PUID=1000 -e PGID=1000 -e TZ="America/Los_Angeles" -p 6789:6789 -v /home/pi/docker/nzbget/config:/config -v /home/pi/docker/nzbget/downloads:/downloads --restart=unless-stopped linuxserver/nzbget
+docker create --name=radarr -e PUID=1000 -e GUID=1000 -e TZ="America/Los_Angeles" -p 7878:7878 -v /home/pi/docker/radarr/config:/config -v /media/Elements/Media/Movies:/movies -v /home/pi/docker/nzbget/downloads:/downloads --restart unless-stopped linuxserver/radarr
+docker create --name=sonarr -e PUID=1000 -e GUID=1000 -e TZ="America/Los_Angeles" -p 8989:8989 -v /home/pi/docker/sonarr/config:/config -v /media/Elements/Media/TV\ Shows/:/tv -v /home/pi/docker/nzbget/downloads:/downloads --restart unless-stopped linuxserver/sonarr
+docker create --name=plex --net=host -e PUID=1000 -e PGID=1000 -v /home/pi/docker/plex/config:/config -v /media/Elements/Media/TV\ Shows:/tv -v /media/Elements/Media/Movies:/movies -v /media/Elements/Media/Music:/music --restart unless-stopped linuxserver/plex
